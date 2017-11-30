@@ -21,7 +21,7 @@ LABEL \
 
 # Define environment 
 ENV	JAVA_HOME=/usr/lib/jvm/default-jvm \
-    PATH=$PATH:$JAVA_HOME:JAVA_HOME/bin:JAVA_HOME/jre:JAVA_HOME/jre/bin
+    PATH=$PATH:${JAVA_HOME}:${JAVA_HOME}/bin:${JAVA_HOME}/jre:${JAVA_HOME}/jre/bin
 
 # Install packages
 RUN	set -x \
@@ -29,11 +29,12 @@ RUN	set -x \
     && JAVA_UPDATE=152 \
     && JAVA_BUILD=16 \
     && JAVA_PATH=aa0333dd3019491ca4f6ddbe78cdb6d0 \
-    && wget --no-check-certificate -c -q --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${VERSION}-b${JAVA_BUILD}/${JAVA_PATH}/jdk-${VERSION}-linux-x64.tar.gz | tar -zcvf -C /tmp \
-    && mkdir -p /usr/lib/jvm \
+    && cd /tmp/ \
+    && wget --no-check-certificate -c -q --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${VERSION}-b${JAVA_BUILD}/${JAVA_PATH}/jdk-${VERSION}-linux-x64.tar.gz \
+    && tar -zxvf -C jdk-${VERSION}-linux-x64.tar.gz \
+    && mkdir -p ${JAVA_HOME} \
     && mv /tmp/jdk1.8.0_${JAVA_UPDATE} ${JAVA_HOME} \
     ## Cleanup
-    && apk del .build-dependencies \
     && rm -rf "$JAVA_HOME/lib/missioncontrol" \
            "$JAVA_HOME/lib/visualvm" \
            "$JAVA_HOME/lib/"*javafx* \
