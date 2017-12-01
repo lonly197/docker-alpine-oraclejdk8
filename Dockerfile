@@ -9,7 +9,7 @@ LABEL \
     org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.docker.dockerfile="/Dockerfile" \
     org.label-schema.license="Apache License 2.0" \
-    org.label-schema.name="lonly/docker-alpine" \
+    org.label-schema.name="lonly/docker-alpine-oraclejdk8" \
     org.label-schema.url="https://github.com/lonly197" \
     org.label-schema.description="Base and Clean Docker image with OracleJDK 8." \
     org.label-schema.vcs-ref=$VCS_REF \
